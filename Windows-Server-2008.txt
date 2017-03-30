@@ -1,0 +1,109 @@
+﻿Win server
+----------
+-> Server - 1. síťová karta - síťový most
+	    2. síťová karta - vnitřní síť
+-> klient - 1. síťová karta - vnitřní síť
+
+-----------------------------
+Název
+------
+-> Tento počítač [pravé] 
+-> vlastnosti 
+-> upřesnit nastavení systému 
+-> Název počítače 
+-> změnit 
+-> <přepsat název počítače + další 
+-> nastavit primární příponu DNS 
+-> restart 
+
+IP
+--
+-> Centrum síťových připojení a sdílení 
+-> nastavení adaptéru 
+-> pro 2. síť kartu ("neznámá síť") nastavit adresu požadované sítě / masku (v našem případě 172.20.6.1/26) 
+-> nastavit pro připojení k síti statickou IP/masku + DNS + výchozí bránu(cmd/ipconfig) (v našem příkladu 192.168.30.114)
+
+NAT
+---
+-> role 
+-> přidat role 
+-> další 
+-> Služba síťové zásady a přístupu + další 
+-> další 
+-> Služba směrování a vzdálený přístup + další 
+-> nainstalovat 
+-> zavřít
+-> v levém sloupci rozkliknout Služba síťové zásady a přístupu, následně rozkliknout Služba směrování a vzdálený přístup 
+-> další akce 
+-> nakonfigurovat
+-> další 
+-> Překlad Adres (NAT) 
+-> 1. síť kartu (v našem případě 192.168.30.114) + další 
+-> !SLUŽBY PŘEKLADU NAINSTALOVAT POZDĚJI! + další 
+-> dokončit
+
+DNS
+----
+-> role 
+-> přidat role 
+-> další 
+-> další 
+-> Nainstalovat
+-> na 1. síť. kartě (192.168.30.114) nastavit DNS na 127.0.0.1 (lokální smyčka) 
+
+DHCP
+----
+-> role 
+-> přidat role 
+-> další 
+-> DHCP + další 
+-> další 
+-> 2. síť. karta (172.20.6.1) + další 
+-> Nadřazená doména <název domény, kterou máte nastavenou> (pozn. pokud máte nastavené správně DNS, bude dole adresa lokální smyčky) 
+-> Aplikace nepožadují WINS + další 
+-> přidat
+*Název oboru  - Hlavni
+*Počáteční IP - 172.20.6.5
+*Koncová IP - 172.20.6.20
+*Maska - 255.255.255.192
+*Výchozí brána - adresa druhé síťové karty (172.20.6.1)
+(pozn. HODNOTY NASTAVTE PRO VAŠI SÍŤ!)
+-> Zakázat bezstavový režim + další
+-> Nainstalovat
+
+ADDS
+----
+-> role 
+-> přidat role
+-> ADDS
+-> Souhlasím
+-> další
+-> další
+-> nainstalovat 
+-> v levém sloupci kliknout na Služba AD DS
+-> Spusťte průvodce instalací služby Active Directory Domain Services(dcpromo.exe)
+-> použít rozšířený režim + další
+-> další
+-> vytvořit novou doménovou strukturu + další
+-> Název na doménu min. 2. řádu (tzn. <název>.local (nebo cz/com/net))
+-> název rozhraní NETBIOS nechat (ideální nepoužívat čísla v názvech) + další
+-> zvolit Win server 2008 R2 + další
+-> další
+-> ano
+-> další
+-> nastavit heslo + další
+-> další
+-> dokončit
+-> restartovat
+-> v levém sloupci kliknout na DHCP 
+-> další akce + autorizovat
+ 
+IIS
+---
+-> role 
+-> přidat role
+-> IIS
+-> další
+-> nainstalovat
+-> na klientovi do prohlížeče adresu 2. síť. karty
+-> přidat role
