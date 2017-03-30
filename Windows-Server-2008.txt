@@ -7,7 +7,7 @@
 -----------------------------
 Název
 ------
--> Tento počítač [pravé] 
+-> Tento počítač [pravé]
 -> vlastnosti 
 -> upřesnit nastavení systému 
 -> Název počítače 
@@ -21,7 +21,7 @@ IP
 -> Centrum síťových připojení a sdílení 
 -> nastavení adaptéru 
 -> pro 2. síť kartu ("neznámá síť") nastavit adresu požadované sítě / masku (v našem případě 172.20.6.1/26) 
--> nastavit pro připojení k síti statickou IP/masku + DNS + výchozí bránu(cmd/ipconfig) (v našem příkladu 192.168.30.114)
+-> nastavit pro připojení k síti statickou IP/masku + DNS + výchozí bránu(cmd/ipconfig) (192.168.30.xxx)
 
 NAT
 ---
@@ -38,7 +38,7 @@ NAT
 -> nakonfigurovat
 -> další 
 -> Překlad Adres (NAT) 
--> 1. síť kartu (v našem případě 192.168.30.114) + další 
+-> 1. síť kartu (192.168.30.xxx) + další 
 -> !SLUŽBY PŘEKLADU NAINSTALOVAT POZDĚJI! + další 
 -> dokončit
 
@@ -49,7 +49,7 @@ DNS
 -> další 
 -> další 
 -> Nainstalovat
--> na 1. síť. kartě (192.168.30.114) nastavit DNS na 127.0.0.1 (lokální smyčka) 
+-> na 1. síť. kartě (192.168.30.xxx) nastavit DNS na 127.0.0.1 (lokální smyčka)
 
 DHCP
 ----
@@ -62,16 +62,16 @@ DHCP
 -> Nadřazená doména <název domény, kterou máte nastavenou> (pozn. pokud máte nastavené správně DNS, bude dole adresa lokální smyčky) 
 -> Aplikace nepožadují WINS + další 
 -> přidat
-*Název oboru  - Hlavni
-*Počáteční IP - 172.20.6.5
-*Koncová IP - 172.20.6.20
-*Maska - 255.255.255.192
+*Název oboru  - Hlavní
+*Počáteční IP - 172.20.6.2
+*Koncová IP - 172.20.6.xx
+*Maska - 255.255.255.xxx
 *Výchozí brána - adresa druhé síťové karty (172.20.6.1)
 (pozn. HODNOTY NASTAVTE PRO VAŠI SÍŤ!)
 -> Zakázat bezstavový režim + další
 -> Nainstalovat
 
-ADDS
+AD DS (Active Directory Domain Services)
 ----
 -> role 
 -> přidat role
@@ -98,7 +98,7 @@ ADDS
 -> v levém sloupci kliknout na DHCP 
 -> další akce + autorizovat
  
-IIS
+IIS (Web server)
 ---
 -> role 
 -> přidat role

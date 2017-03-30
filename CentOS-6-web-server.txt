@@ -1,4 +1,6 @@
-﻿Apache, PHP, MySQL, FTP
+﻿-> CENTOS 6.5 bez SE linux
+
+Apache, PHP, MySQL, FTP
 -----------------------
 používané sítě, služby: eth0 - 192.168.30.111/eth1 - 10.255.255.1//NAT, DNS, DHCP
 ---------------------------------------------------------------------
