@@ -1,0 +1,96 @@
+
+Návod na instalaci a konfiguraci produktu Windows Server 2012 R2. 
+Pro použití jako doménový kontroler pro službu Active Directory.
+
+----------------------Vysvětlení značení--------------------------------------------------------------------------------------------
+
+"1)","3)"		-	Označení jednotlivýh částí fáze
+"a)","c)"		-	podoblast 
+"-"				-	Označení konkrétní činosti v oblasti
+"//"			-	Komentář
+
+-----------------------Fáze Virtual box--------------------------------------------------------------------------------------------
+
+1) Založení nového virtuálního počítače
+
+a) Založení virtuální počítač pro Windows Server 2012(dále jen WS2012)
+-Kliknete na modré tlačítko "Nový".
+-Pojmenujeme nový počítač "Windows Server 2012" 
+-Velikost paměti nastavíte na hodnotu 2048MB. V případě nedostatku paměti zvolte nižší hodnotu.
+-V nabídce "Pevný disk" ponecháme výchozí možnost "Vytvořit nyní virtuální pevný disk".
+-Kliknete na "Vytvořit".
+
+b) Vytvoření virtuálního pevného disku pevného disku
+-Umístění ponecháme jak je.
+-Velikost souboru(disku) nastavíme na hodnotu 50GB. V případě nedostatku místa zvolte nižší hodnotu.
+-V nabídce "Typ souboru pro virtuální disk" ponecháme výchozí hodnotu "VDI (VirtualBox Disk Image)".
+-V nabídce "Uložiště na fyzickém pevném disku" ponecháme výchozí hodnotu "Dynamicky alokované"
+-Kliknete na "Vytvořit".
+
+// Tímto je "skeleton" virtuálního počítače vytvořen. Nyní je potřeba nastavit všechny parametry.
+
+2) Nastavení virtuálního počítače
+-Pravím tlačítkem kliknete na nově vytvořený virtuální stroj a vyberete možnost nastavení.
+
+a) Záložka "Systém"
+-V nastavení přejděte do záložky "Systém", kde v kartě "Procesor" nastavíte hodnotu parametru "Processor(y)" na hodnotu 2.
+-Parametr "Omezení procesoru" nastavíte na hodnotu 85 až 90%
+-Na kartě "Akcelerace" nastavíte parametr "Rozhraní paravirtualizace" na hodnotu "Hyper-V".
+
+b)Záložka "Uložiště"
+-Kliknete na ikonu (připomínající CD/DVD) a následně u parametru "Optická mechanika" kliknete na stejnou ikonu(připomínající CD/DVD).
+Následně v rozbalovací nabídce klikněte na první možnost s ikonou složky se zelenou šipkou "Vybrat soubor s obrazem ...".
+
+c)Záložka "Síť"
+-V první kartě změňte parametr "Připojena k" na "Síťový most".
+-V druhé kartě zaškrtněte políčko parametru "Povolit síťovou kartu". Následně změňte parametr "Připojena k" na "Vnitřní síť".
+-Klikněte na tlačítko "OK"
+
+// Tímto je konfigurace dokončena a virtuální počítač je připraven na instalaci WS2012
+
+-----------------------Fáze instalace systému--------------------------------------------------------------------------------------------
+
+-Stisknete tlačítko "Spustit"
+-Po spuštění počkáte než se načte rozhraní a objeví se tabulka s výběrem jazyka, vše necháme na výchozích hodnotách(česky)
+-Kliknete na tlačítko "Další" a následně na tlačítko "Nainstalovat".
+-Vyplňte do pole následující licenční klíč: D2N9P-3P6X9-2R39C-7RTCD-MDVJX
+-V dalším okně vyberete možnost "Windows Server 2012 R2 Standart (server s grafickým uživatelským rozhraním)".
+-Zaškrtene políčko "Přijímám licenční podmínky" a stisknete tlačítko "další".
+-Vyberete možnost "Vlastní: Jenom nainstalovat Windows ..."
+-Označíte "Nepřidělené místo na jednotce 0" a kliktene na tlačítko "další".
+// Nyní se systém nainstaluje
+
+-----------------------Fáze nastavení systému--------------------------------------------------------------------------------------------
+
+1) Základní nastavení
+-Zadáte nové heslo pro účet administrator
+-Kliknete na tlačítko "Dokončit"
+-Odemkněte přihlašovací obrazovku(CTRL+ALT+DELETE)
+-Po přihlášení se přesuňte do sekce "Centrum síťových připojení a sdílení".
+-Přejděte do "Změnit nastavení adaptéru", kde adaptér sítě s přístupem k internetu pojmenujte "WAN" a adaptér vnitřní sítě na "LAN", poté přejděte zpět
+-U sítě s názvem(Připojení) "WAN" změníme vlastnosti pro protokol IPv4 a to konkrétně nastavíme statickou IP adresu a jako adresy DNS serverů použijete na prvním místě adresu vašeho server a na druhém nějaký free DNS server.
+A protokol IPv6 můžeme deaktivovat.
+-U druhé sítě(vnitřní neboli LAN), taktéž vypnete IPv6 a nastavíte IPv4 na požadovaný adresní rozsah a DNS servery.
+//Tímto je základní nastavení hotové a je možné nastavit jednotlivé služby(moduly).
+
+2)Nastavení služeb(modulů)
+
+a)DNS
+-Ve správci serveru kliknete na možnost "Přidat role a funkce".
+-Následně se otevře průvodce, stačí jen kliknout na "Další >", "Další >" a znovu na "Další >".
+-Nyní zaškrtnete "Server DNS", v okně, které se objevilo stačí kliknout na "Přidat funkce" a kliknout na "Další >".
+-Znovu kliknete na "Další >", "Další >" a nakonec "Nainstalovat" a nazávěr kliknete na "Zavřít"
+-V horní liště vedle "vlajky" rozklikněte nabídku "Nástroje", kde vyberete "DNS"
+-Poté co se otevře okno "Správce DNS", klikněte pravím tlačítkem na ikonu serveru hned pod textem "DNS" v levém sloupci.
+A vyberte možnost "Konfigurovat server DNS".
+-Klikněte na "Další >", "Další >", "Další >", Do pole "Název zóny" vepište název vaší domény např. domain.local
+Klikněte na "Další >", "Další >", zvolte možnost "Ne, nepředávat dotazy" a klikněte na "Další >", "Dokončit"
+//Správnou funkčnost ověříte zadáním příkazu nslookup goo.gl do terminálu PowerShell a pokud se vám vrátí adresa webového serveru goo.gl se DNS správně nakonfigurován
+
+
+
+
+
+----------------------Zdroje informací v návodu--------------------------------------------------------------------------------------------
+
+https://superuser.com/questions/945910/how-to-select-paravirtualization-interface-in-virtual-box
