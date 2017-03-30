@@ -1,0 +1,85 @@
+﻿Apache, PHP, MySQL, FTP
+-----------------------
+používané sítě, služby: eth0 - 192.168.30.111/eth1 - 10.255.255.1//NAT, DNS, DHCP
+---------------------------------------------------------------------
+V případě několikanásobného zamíchání MAC adres
+
+! /etc/udev/ruled.d/70-persit.rules -> zjištění počtu síť karet
+! sysconfig/networking/devices/eth1, eth0 smazat statickou mac adresu
+! -> reboot Pc
+---------------------------------------------------------------------
+
+
+Apache, PHP
+------------
+-> yum groupinstall "WWW server" "Podpora pro PHP"
+-> setup - systémové služby - httpd
+-> service httpd restart
+-> do klienta do prohlížeče ip adresu serveru (10.255.255.1)
+-> mc -> var/www/html/ (kořenový adresář httpd) - touch index.html (příkaz touch vytvoří soubor s názvem index.html)
+-> do souboru index zapsat nějaký html kód - kontrola na klientovi
+-> vytvořit soubor php např.: test.php (stačí do něj příkaz <?php php.info ?>)
+-> na klientovi do prohlížeče adresa (10.255.255.1)/soubor.php (v našem případě tedy 10.255.255.1/test.php)
+-------------------------------------------------------------------------------------------------------------------
+
+MySQL
+-----
+-> yum groupinstall "Sever databází MySQL"
+-> setup - systémové služby - mysqld
+-> service mysqld restart
+-> /usr/bin/mysqladmin -u root password '<heslo>' (změna hesla na mysql admina [-u = user, -p = password])
+-> mysql -u root -p (přihlášení k mysql, v dalším kroku Centos vyzve k zadání hesla do mysql)
+-> odchod přes příkaz: quit;
+-> useradd -d /var/www/html/ -m webmaster -g apache
+-> mc - z root kopírovat .bashrc, .bash_profile, .bash_profile, .bash_history, soubory [index] (označení přes Insert) do var/www/html/
+-> mc - var/www/html/.bashrc, .bash_profile, .bash_profile, .bash_history, soubory[index] - f9 - změna vlastníka - nastavit uživatele webmaster ze skupiny apache
+-> logout, přihlásit se jako webmaster
+-> vi var/www/html/.bashrc a do posledního řádku (pod fi) napsat 'umask 0002'
+-> relog na webmastera
+-> umask (pokud vypíše 0002, vše funguje správně)
+-> create database <nazev> (př.: wordpress)
+-> relog na roota
+-> na klientovi - explo - ninite.com (winscp,putty,Chrome)
+-> na klientovi wordpress.org/download - verze 4.5 + rozbalit
+-> winscp - 
+*Hostitel - Vých. brána sítě
+*port - 22
+*login na webmastera
+-> kopírovat wordpress do html (resp všechny soubory z wordpress)
+-> do linux - yum install php-mysql
+-> service httpd restart
+-> na klientovi do prohlížeče adresu vých. brány (př.: 10.255.255.1)
+-> [let's go] - nainstalovat
+--------------------------------------------------------------------------------------------------------------------------
+
+SAMBA
+-----
+-> yum install samba
+-> setup - služby - nmb/smb
+-> mc - /etc/samba/smb.conf
+*workgroup = <přejmenovat> (workgroup = MYGROUP)
+*odkomentovat interfaces = lo eth1 (pozn. komentář = ;)
+*odkomentovat hosts allow = <všichni klienti v síti> (např.: 10.255.255.)
+*odkomentovat netbios name = MYSERVER (možnost přejmenovat)
+*Sekce Browser Control Options 
+*odkomentovat local master = yes
+*odkomentovat os level = 65
+*odkomentovat prefered master = yes
+-> service smb restart
+-> service nmb restart
+-> smbpasswd -a root (nastavit heslo)
+-> useradd user
+-> password -f <heslo>
+-> smbpasswd -a user (nastavit heslo)
+-> na klientovi založit také uživatele user
+-> přihlásit se na usera (na stanici)
+-> do nabídky start \\<netbiosname> [ENTER] -> síť disk (př.: MYSERVER)
+
+
+
+
+
+
+
+
+
