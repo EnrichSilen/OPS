@@ -67,14 +67,24 @@ c)Záložka "Síť"
 -Odemkněte přihlašovací obrazovku(CTRL+ALT+DELETE)
 -Po přihlášení se přesuňte do sekce "Centrum síťových připojení a sdílení".
 -Přejděte do "Změnit nastavení adaptéru", kde adaptér sítě s přístupem k internetu pojmenujte "WAN" a adaptér vnitřní sítě na "LAN", poté přejděte zpět
--U sítě s názvem(Připojení) "WAN" změníme vlastnosti pro protokol IPv4 a to konkrétně nastavíme statickou IP adresu a jako adresy DNS serverů použijete na prvním místě adresu vašeho server a na druhém nějaký free DNS server.
+-U sítě s názvem(Připojení) "WAN" změníme vlastnosti pro protokol IPv4 a to konkrétně nastavíme statickou IP adresu a jako adresy DNS serverů použijete na prvním místě adresu vašeho server a na druhém nějaký DNS server.
 A protokol IPv6 můžeme deaktivovat.
 -U druhé sítě(vnitřní neboli LAN), taktéž vypnete IPv6 a nastavíte IPv4 na požadovaný adresní rozsah a DNS servery.
+-Následně přejmenujte počítač(server) ve vlastnstech systému na název dle vlastního výběru.
 //Tímto je základní nastavení hotové a je možné nastavit jednotlivé služby(moduly).
 
 2)Nastavení služeb(modulů)
 
-a)DNS
+a) AD DS
+
+b) DHCP
+
+
+
+
+-----------------------Další postupy k nastavení modulů--------------------------------------------------------------------------------------------
+
+DNS)
 -Ve správci serveru kliknete na možnost "Přidat role a funkce".
 -Následně se otevře průvodce, stačí jen kliknout na "Další >", "Další >" a znovu na "Další >".
 -Nyní zaškrtnete "Server DNS", v okně, které se objevilo stačí kliknout na "Přidat funkce" a kliknout na "Další >".
@@ -85,10 +95,6 @@ A vyberte možnost "Konfigurovat server DNS".
 -Klikněte na "Další >", "Další >", "Další >", Do pole "Název zóny" vepište název vaší domény např. domain.local
 Klikněte na "Další >", "Další >", zvolte možnost "Ne, nepředávat dotazy" a klikněte na "Další >", "Dokončit"
 //Správnou funkčnost ověříte zadáním příkazu nslookup goo.gl do terminálu PowerShell a pokud se vám vrátí adresa webového serveru goo.gl se DNS správně nakonfigurován
-
-
-
-
 
 ----------------------Zdroje informací v návodu--------------------------------------------------------------------------------------------
 
