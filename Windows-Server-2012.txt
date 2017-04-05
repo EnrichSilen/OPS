@@ -4,7 +4,7 @@ Pro použití jako doménový kontroler pro službu Active Directory.
 ----------------------Vysvětlení značení--------------------------------------------------------------------------------------------
 
 "1)","3)"		-	Označení jednotlivýh částí fáze
-"a)","c)"		-	podoblast 
+"a)","c)"		-	Sekce v dané části fáze 
 "-"				-	Označení konkrétní činosti v oblasti
 "//"			-	Komentář
 
@@ -76,7 +76,7 @@ A protokol IPv6 můžeme deaktivovat.
 2)Nastavení služeb(modulů)
 
 a) AD DS
--Kliknete na "Přidat role a funkce" v řídícím panelu.
+-Klikněte na "Přidat role a funkce" v řídícím panelu.
 -3x "Další >"
 -Označíte role "Server DHCP" & "Server DNS" & "Služba Active Directory Domain Services".
 A vždy potvrdit "Přidat funkce"
@@ -98,14 +98,15 @@ A vždy potvrdit "Přidat funkce"
 -Nyní je možnost zvolit si jiné než vygenerovaný název NetBIOS.
 //Doporučuji neměnit
 -3x"Další >"
-//Nyní se ověří všechny podmínky pro vznik domény na vašem serveru. Můžete si pročíst všechny upozornění pokud chcete. A v připadě že má poslední řádek zelenou ikonku s fajivkou, je vše v pořádku. V opačném případě se obraťe na vašeho administrátora.
+//Nyní se ověří všechny podmínky pro vznik domény na vašem serveru. Můžete si pročíst všechny upozornění pokud chcete. A v připadě že má poslední řádek zelenou ikonku s fajivkou, je vše v pořádku. V opačném případě se obraťe na administrátora systému.
 -"Nainstalovat"
-//V případě že vás bude znepokojovat informace o tom že jsou povoleny starší algoritmy, můžete je vypnout pomocí návodu uvedeného ve zdrojích informací
+//V případě že vás bude znepokojovat informace o tom že jsou povoleny starší šifrovací algoritmy, můžete je vypnout za pomoci návodu uvedeného ve zdrojích informací.
 //Poté co dojde k restartu: Počkejte prosím.
 -Přihlašte se.
 //Nezapomeňte zapnout "NumLock"
--V případě podezření na nefunkčnost internetového připojení otevřete "Power sHELL" a postupně zadejte tito příkazy(názvy domén a IP adresy jsou evedeny jako příklad): "nslookup example.com", "ping 8.8.8.8", "ping example.com"
-//Tímto je nastavení AD DS hotovo...
+-V případě podezření na nefunkčnost internetového připojení otevřete "Power sHELL" a postupně zadejte následující příkazy(názvy domén a IP adresy jsou uvedeny jako příklad): "nslookup example.com", "ping 8.8.8.8", "ping example.com"
+//Tímto je nastavení AD DS a DNS hotovo...
+//Vysvětlení pro DNS: Pokud nainstalujete ale nenastavíte DNS. Při povyšování serveru na řadič domény, dojde k nastavení DNS automaticky, tak aby vyhovoval požadavkům domény.
 
 b) DHCP
 
