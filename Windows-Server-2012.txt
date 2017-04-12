@@ -20,10 +20,10 @@ a) Založení virtuální počítač pro Windows Server 2012(dále jen WS2012)
 -Kliknete na "Vytvořit".
 
 b) Vytvoření virtuálního pevného disku pevného disku
--Umístění ponecháme jak je.
+-Umístění ponecháte jak je.
 -Velikost souboru(disku) nastavíme na hodnotu 50GB. V případě nedostatku místa zvolte nižší hodnotu.
 -V nabídce "Typ souboru pro virtuální disk" ponecháme výchozí hodnotu "VDI (VirtualBox Disk Image)".
--V nabídce "Uložiště na fyzickém pevném disku" ponecháme výchozí hodnotu "Dynamicky alokované"
+-V nabídce "Uložiště na fyzickém pevném disku" ponecháte výchozí hodnotu "Dynamicky alokované"
 -Kliknete na "Vytvořit".
 
 // Tímto je "skeleton" virtuálního počítače vytvořen. Nyní je potřeba nastavit všechny parametry.
@@ -50,7 +50,7 @@ c)Záložka "Síť"
 -----------------------Fáze instalace systému--------------------------------------------------------------------------------------------
 
 -Stisknete tlačítko "Spustit"
--Po spuštění počkáte než se načte rozhraní a objeví se tabulka s výběrem jazyka, vše necháme na výchozích hodnotách(česky)
+-Po spuštění počkáte než se načte rozhraní a objeví se tabulka s výběrem jazyka, vše necháte na výchozích hodnotách(česky)
 -Kliknete na tlačítko "Další" a následně na tlačítko "Nainstalovat".
 //Klíče budou poskytnuty na začátku zkoušky, pro vyzkoušení -> D2N9P-3P6X9-2R39C-7RTCD-MDVJX
 -Vyplňte do pole licenční klíč poskytnutý zadavatelem
@@ -72,7 +72,7 @@ c)Záložka "Síť"
 A protokol IPv6 můžeme deaktivovat.
 -U druhé sítě(vnitřní neboli LAN), taktéž vypnete IPv6 a nastavíte IPv4 na požadovaný adresní rozsah a DNS servery.
 -Následně přejmenujte počítač(server) ve vlastnstech systému na název dle vlastního výběru.
-//Tímto je základní nastavení hotové a je možné nastavit jednotlivé služby(moduly).
+//Tímto je základní nastavení hotové a je možné nainstalovat jednotlivé služby(moduly).
 
 2)Nastavení služeb(modulů)
 
@@ -108,6 +108,7 @@ A vždy potvrdit "Přidat funkce"
 -V případě podezření na nefunkčnost internetového připojení otevřete "Power sHELL" a postupně zadejte následující příkazy(názvy domén a IP adresy jsou uvedeny jako příklad): "nslookup example.com", "ping 8.8.8.8", "ping example.com"
 //Tímto je nastavení AD DS a DNS hotovo...
 //Vysvětlení pro DNS: Pokud nainstalujete ale nenastavíte DNS. Při povyšování serveru na řadič domény, dojde k nastavení DNS automaticky, tak aby vyhovoval požadavkům domény.
+//Poté je možné upravy zóny dopředného vyhledávání dle potřeby v "Nástroje" -> "DNS".
 
 b) DHCP
 -Rozkliknete "vlaječku" a kliknete na "Dokončit konfiguraci služby DHCP".
@@ -130,9 +131,13 @@ b) DHCP
 -"Dokončit"
 //Tímto je konfigurace DHCP dokončena
 
+c) NAT
+-Klikněte na "Přidat role a funkce" v řídícím panelu.
+-3x "Další >"
 
 
------------------------Další postupy k nastavení modulů--------------------------------------------------------------------------------------------
+
+-----------------------Nastavení jednotlivýh modulů (v případě nepoužívání AD DS)--------------------------------------------------------------------------------------------
 
 DNS)
 -Ve správci serveru kliknete na možnost "Přidat role a funkce".
@@ -147,6 +152,7 @@ Klikněte na "Další >", "Další >", zvolte možnost "Ne, nepředávat dotazy"
 //Správnou funkčnost ověříte zadáním příkazu nslookup goo.gl do terminálu PowerShell a pokud se vám vrátí adresa webového serveru goo.gl se DNS správně nakonfigurován
 
 ----------------------Zdroje informací v návodu--------------------------------------------------------------------------------------------
+
 //proč je paravirtualizace Hyper-V nejlepší pro Windows?
 https://superuser.com/questions/945910/how-to-select-paravirtualization-interface-in-virtual-box
 //Starší algoritmy? ... pryč s nimi
