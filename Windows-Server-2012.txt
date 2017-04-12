@@ -52,7 +52,8 @@ c)Záložka "Síť"
 -Stisknete tlačítko "Spustit"
 -Po spuštění počkáte než se načte rozhraní a objeví se tabulka s výběrem jazyka, vše necháme na výchozích hodnotách(česky)
 -Kliknete na tlačítko "Další" a následně na tlačítko "Nainstalovat".
--Vyplňte do pole následující licenční klíč: D2N9P-3P6X9-2R39C-7RTCD-MDVJX
+//Klíče budou poskytnuty na začátku zkoušky, pro vyzkoušení -> D2N9P-3P6X9-2R39C-7RTCD-MDVJX
+-Vyplňte do pole licenční klíč poskytnutý zadavatelem
 -V dalším okně vyberete možnost "Windows Server 2012 R2 Standart (server s grafickým uživatelským rozhraním)".
 -Zaškrtene políčko "Přijímám licenční podmínky" a stisknete tlačítko "další".
 -Vyberete možnost "Vlastní: Jenom nainstalovat Windows ..."
@@ -75,7 +76,7 @@ A protokol IPv6 můžeme deaktivovat.
 
 2)Nastavení služeb(modulů)
 
-a) AD DS
+a) AD DS (Active Directory Domain Services)
 -Klikněte na "Přidat role a funkce" v řídícím panelu.
 -3x "Další >"
 -Označíte role "Server DHCP" & "Server DNS" & "Služba Active Directory Domain Services".
@@ -109,7 +110,25 @@ A vždy potvrdit "Přidat funkce"
 //Vysvětlení pro DNS: Pokud nainstalujete ale nenastavíte DNS. Při povyšování serveru na řadič domény, dojde k nastavení DNS automaticky, tak aby vyhovoval požadavkům domény.
 
 b) DHCP
-
+-Rozkliknete "vlaječku" a kliknete na "Dokončit konfiguraci služby DHCP".
+-"Další >"
+-"Potvrdit"
+-"Zavřít"
+-Rozkliknete "Nástroje" a kliknete na "DHCP".
+-Rozkliknete <název serveru>.<doménový název>.<zvolená doménová přípona> např. "server.firma.cz"
+-Pravým tlačítkem kliknete na "IPv4" a vyberete "Nový obor..."
+-"Další >"
+-Vyplňte název a popis oboru ip adres.
+-"Další >"
+-Zadejte rozsah adres
+//Rozsah a maska podsítě bude vyplněna dle zadání během zkoušky.
+-4x"Další >"
+-Zadejte ip adresu vašeho serveru v síti lan např. "10.1.1.1"
+-"Další >"
+-Smažte všechny ip adresy v seznamu a přidejte adresu vašeho serveru např. "10.1.1.1"
+-3x"Další >"
+-"Dokončit"
+//Tímto je konfigurace DHCP dokončena
 
 
 
@@ -128,7 +147,7 @@ Klikněte na "Další >", "Další >", zvolte možnost "Ne, nepředávat dotazy"
 //Správnou funkčnost ověříte zadáním příkazu nslookup goo.gl do terminálu PowerShell a pokud se vám vrátí adresa webového serveru goo.gl se DNS správně nakonfigurován
 
 ----------------------Zdroje informací v návodu--------------------------------------------------------------------------------------------
-//proč je daná paravirtualizace nejlepší?
+//proč je paravirtualizace Hyper-V nejlepší pro Windows?
 https://superuser.com/questions/945910/how-to-select-paravirtualization-interface-in-virtual-box
 //Starší algoritmy? ... pryč s nimi
 https://social.technet.microsoft.com/Forums/en-US/faad7dd2-19d5-4ba0-bd3a-fc724d234d7b/how-to-diable-rc4-is-windows-2012-r2?forum=winservergen
