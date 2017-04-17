@@ -1,0 +1,26 @@
+Instalace Linux 7
+-----------------
+-> instalace z CD:
+-> nastavit disky 
+* boot - 500MB 
+* BIOSboot/bootEFI - 500MB (skoèí automaticky 2 MB)
+* SWAP - 8GB
+* /root - zbytek
+-> zapnout sí. kartu + pøipojit jí
+-> operaèní prostøedí dle vlastního vıbìru + aplikace , vıvojáøské nástroje, kompatibilita, 2. kompatibilita, kanceláøské aplikace
+-> vypnout KDUMP
+-> install
+-> zbytek si najdìte nebo volejte: 723 458 007 
+
+SeLinux
+-------
+-> vim /etc/sysconfig/selinux
+* selinux = disable
+* [esc] & :x
+
+Instalace Virtual Box
+---------------------
+-> yum install VirtualBox-5.1
+-> nebo stáhnout soubor z phoebe (popøípadì z webu) ve formátu .rpm
+-> yum groupinstall "Vıvojáøské nástroje" "Virtualizaèní klient"
+

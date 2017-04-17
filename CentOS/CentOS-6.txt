@@ -1,0 +1,167 @@
+﻿-> CENTOS 6.5 bez SE linux
+
+Nastavení/příprava karet
+------------------------
+-> eth0 - síť. most
+-> eth1 - vnitřní síť	
+-> yum update
+-> ifconfig (zjistit si IP adresu)
+-> setup - konfigurace sítě - přidat zařízení - ethernet (eth1 - žádná výchozí brána/dns)
+-> service network restart
+-> statická IP pro eth0 (IP, maska, vých. brána, dns)
+-> service network restart
+-> yum install mc
+-> mc - /etc/sysconfig/network-scripts - (u požadované síť karty) přepsat ONBOOT na yes (při uložení odpojit)
+-> service network restart
+--------------------------------------------------------------------------------------------------------------
+
+Import klienta
+--------------
+-> setup - konfigurace sítě - dns - přejmenovat PC
+-> reboot
+-> (import klienta - win7 (přidělit klienta do vnitřní sítě [eth0]))
+-> na klientovi nastavit statickou IP adresu (výchozí brána = eth1)
+--------------------------------------------------------------------------------------------------------------
+
+Nastavení NAT (překladu adres)
+------------------------------
+-> mc - /etc/sysctl.conf - (net.ipv4.ip_forward = 1 -> první nekomentovaný řádek)
+-> sysctl -p  (restartuje službu) -j
+-> service iptables stop (vypnutí firewall)
+-> iptables -L -t nat (zobrazení tabulky IP tables)
+-> iptables -t nat -A POSTROUTING -o eth0 -s <adresa sítě, pro kterou děláme překlad (př. 10.255.255.0/24)> -j MASQUERADE
+-> iptables-save > /etc/sysconfig/iptables (uloží aktuální konfiguraci do iptables) 
+   [pozn. (>) se píše jako pravý alt + shift + >]
+-> zkouška pomocí pingu na vnější síť (seznam.cz)
+-----------------------------------------------------------------------------------------------------------------
+
+Nastavení DHCP
+--------------
+-> yum install dhcp
+-> setup - systémové služby - dhcpd
+-> mc - /etc/dhcp/dhcpd.conf
+-> (přejet do druhé tabulky pomocí TAB) /usr/share/doc/dhcp-4.1.1/dhcpd.co* (f5 nahradit /etc/dhcp/dhcpd.conf)
+-> (přejet z5 do 1. tabulky pomocí TAB) /etc/dhcp/dhcpd.conf - editovat (f4)
+* přepsat domain name
+* přepsat dns servery na 8.8.8.8
+* přepsat první subnet na síť, které budeme přidělovat IP adresy
+subnet 10.255.255.0 netmask 255.255.255.0{
+}
+* hned pod tím:
+subnet 10.255.255.0 netmask 255.255.255.0{
+	range 10.255.255.10 10.255.255.254;(rozsahy IP adres)
+	option routers 10.255.255.1; (výchozí brána)
+}
+-> na klientovi nastavit dynamickou ip adresu
+----------------------------------------------------------------------------------------------------------------
+Nastavení DNS
+-------------
+
+-> yum install bind
+-> setup - systémové služby - named
+-> mc - /etc/named.conf
+* listen on port 53{ 127.0.0.1;  10.255.255.1; }; (jaký port bude umožňovat DNS)
+* allow-query {localhost;  10.255.255.0/24; }; (síť, která může vznášet dotazy na DNS)
+-> service named restart
+-> setup - konfigurace sítě - nastavení dns - DNS 127.0.0.1
+-> mc - /etc/resolv.conf
+*nameserver 127.0.0.1
+-> mc - /etc/sysconfig/networking-scripts/eth0
+* vymazat DNS (DNS1 =)
+-> service network restart
+-> mc - /etc/dchp/dhcpd.conf
+* změnit 8.8.8.8 na <adresa výchozí brány sítě> (př: 10.255.255.1)
+-> service dhcpd restart
+-> na klientovi zakázat/povolit síť -> v podrobnostech kontrola DNS
+---------------------------------------------------------------------
+
+Apache, PHP, MySQL, FTP
+-----------------------
+používané sítě, služby: eth0 - 192.168.30.111/eth1 - 10.255.255.1//NAT, DNS, DHCP
+---------------------------------------------------------------------
+V případě několikanásobného zamíchání MAC adres
+
+! /etc/udev/ruled.d/70-persit.rules -> zjištění počtu síť karet
+! sysconfig/networking/devices/eth1, eth0 smazat statickou mac adresu
+! -> reboot Pc
+---------------------------------------------------------------------
+
+
+Apache, PHP
+------------
+-> yum groupinstall "WWW server" "Podpora pro PHP"
+-> setup - systémové služby - httpd
+-> service httpd restart
+-> do klienta do prohlížeče ip adresu serveru (10.255.255.1)
+-> mc -> var/www/html/ (kořenový adresář httpd) - touch index.html (příkaz touch vytvoří soubor s názvem index.html)
+-> do souboru index zapsat nějaký html kód - kontrola na klientovi
+-> vytvořit soubor php např.: test.php (stačí do něj příkaz <?php php.info ?>)
+-> na klientovi do prohlížeče adresa (10.255.255.1)/soubor.php (v našem případě tedy 10.255.255.1/test.php)
+-------------------------------------------------------------------------------------------------------------------
+
+MySQL
+-----
+-> yum groupinstall "Sever databází MySQL"
+-> setup - systémové služby - mysqld
+-> service mysqld restart
+-> /usr/bin/mysqladmin -u root password '<heslo>' (změna hesla na mysql admina [-u = user, -p = password])
+-> mysql -u root -p (přihlášení k mysql, v dalším kroku Centos vyzve k zadání hesla do mysql)
+-> odchod přes příkaz: quit;
+-> useradd -d /var/www/html/ -m webmaster -g apache
+-> mc - z root kopírovat .bashrc, .bash_profile, .bash_profile, .bash_history, soubory [index] (označení přes Insert) do var/www/html/
+-> mc - var/www/html/.bashrc, .bash_profile, .bash_profile, .bash_history, soubory[index] - f9 - změna vlastníka - nastavit uživatele webmaster ze skupiny apache
+-> logout, přihlásit se jako webmaster
+-> vi var/www/html/.bashrc a do posledního řádku (pod fi) napsat 'umask 0002'
+-> relog na webmastera
+-> umask (pokud vypíše 0002, vše funguje správně)
+-> create database <nazev> (př.: wordpress)
+-> relog na roota
+-> na klientovi - explo - ninite.com (winscp,putty,Chrome)
+-> na klientovi wordpress.org/download - verze 4.5 + rozbalit
+-> winscp - 
+*Hostitel - Vých. brána sítě
+*port - 22
+*login na webmastera
+-> kopírovat wordpress do html (resp všechny soubory z wordpress)
+-> do linux - yum install php-mysql
+-> service httpd restart
+-> na klientovi do prohlížeče adresu vých. brány (př.: 10.255.255.1)
+-> [let's go] - nainstalovat
+--------------------------------------------------------------------------------------------------------------------------
+
+SAMBA
+-----
+-> yum install samba
+-> setup - služby - nmb/smb
+-> mc - /etc/samba/smb.conf
+*workgroup = <přejmenovat> (workgroup = MYGROUP)
+*odkomentovat interfaces = lo eth1 (pozn. komentář = ;)
+*odkomentovat hosts allow = <všichni klienti v síti> (např.: 10.255.255.)
+*odkomentovat netbios name = MYSERVER (možnost přejmenovat)
+*Sekce Browser Control Options 
+*odkomentovat local master = yes
+*odkomentovat os level = 65
+*odkomentovat prefered master = yes
+-> service smb restart
+-> service nmb restart
+-> smbpasswd -a root (nastavit heslo)
+-> useradd user
+-> password -f <heslo>
+-> smbpasswd -a user (nastavit heslo)
+-> na klientovi založit také uživatele user
+-> přihlásit se na usera (na stanici)
+-> do nabídky start \\<netbiosname> [ENTER] -> síť disk (př.: MYSERVER)
+------------------------------------------------------------------------------------------------------------
+
+Quota
+-----
+-> vim /etc/sftab
+* u /root (1.řádek) napsat za default: ,usrquota
+* [ESC] :x
+-> reboot
+-> quotacheck -m /
+-> edquota <jméno uživatele>
+-> hard - MAX
+-> soft - MIN
+!Velikost v kB
+-> reboot 
