@@ -1,5 +1,12 @@
 ﻿-> CENTOS 6.5 bez SE linux
 
+Zrcadla pro net-install
+-------------------
+http://mirror.in.spsostrov.cz/centos/6/os/i386
+http://mirror.centos.org/centos/6/os/i386/
+http://mirrors.sonic.net/centos/6/os/i386/
+
+
 Nastavení/příprava karet
 ------------------------
 -> eth0 - síť. most
