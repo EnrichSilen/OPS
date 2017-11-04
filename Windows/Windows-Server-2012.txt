@@ -19,7 +19,7 @@ a) Založení virtuální počítač pro Windows Server 2012(dále jen WS2012)
 -V nabídce "Pevný disk" ponecháme výchozí možnost "Vytvořit nyní virtuální pevný disk".
 -Kliknete na "Vytvořit".
 
-b) Vytvoření virtuálního pevného disku pevného disku
+b) Vytvoření virtuálního pevného disku
 -Umístění ponecháte jak je.
 -Velikost souboru(disku) nastavíme na hodnotu 50GB. V případě nedostatku místa zvolte nižší hodnotu.
 -V nabídce "Typ souboru pro virtuální disk" ponecháme výchozí hodnotu "VDI (VirtualBox Disk Image)".
@@ -68,7 +68,7 @@ c)Záložka "Síť"
 -Odemkněte přihlašovací obrazovku(CTRL+ALT+DELETE)
 -Po přihlášení se přesuňte do sekce "Centrum síťových připojení a sdílení".
 -Přejděte do "Změnit nastavení adaptéru", kde adaptér sítě s přístupem k internetu pojmenujte "WAN" a adaptér vnitřní sítě na "LAN", poté přejděte zpět
--U sítě s názvem(Připojení) "WAN" změníme vlastnosti pro protokol IPv4 a to konkrétně nastavíme statickou IP adresu a jako adresy DNS serverů použijete na prvním místě adresu vašeho server a na druhém nějaký DNS server.
+-U sítě s názvem(Připojení) "WAN" změníme vlastnosti pro protokol IPv4 a to konkrétně nastavíme statickou IP adresu a jako adresy DNS serverů použijete na prvním místě adresu vašeho serveru a na druhém nějaký DNS server např. 8.8.8.8
 A protokol IPv6 můžeme deaktivovat.
 -U druhé sítě(vnitřní neboli LAN), taktéž vypnete IPv6 a nastavíte IPv4 na požadovaný adresní rozsah a DNS servery.
 -Následně přejmenujte počítač(server) ve vlastnstech systému na název dle vlastního výběru.
@@ -87,7 +87,7 @@ A vždy potvrdit "Přidat funkce"
 -Rozkliknete "vlaječku" a kliknete na "Povýšit tento server na řadič domény".
 //Povýšení domény musí být bezpodmínečně provedeno jako první.
 -Vyberete možnost "Přidat novou doménovou strukturu".
--Zadáte název domény. Ideální název sestává z krátkého názvu pro vaší domůnu (např. doma, kancelar, firma, novak) a koncovky v následující podobě (.cz, .exp, .local)
+-Zadáte název domény. Ideální název sestává z krátkého názvu pro vaší doménu (např. doma, kancelar, firma, novak) a koncovky v následující podobě (.cz, .com, .local)
 //Příklad validního názvu: doma.local
 -"Další >"
 -V případě potřeby změníte možnosti "Úroveň funkčnosti doménové struktury" a "Úroveň funkčnosti domény".
