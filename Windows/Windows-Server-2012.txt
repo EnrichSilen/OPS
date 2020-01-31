@@ -1,5 +1,6 @@
 Návod na instalaci a konfiguraci produktu Windows Server 2012 R2. 
 Pro použití jako doménový kontroler pro službu Active Directory.
+Autor: Jan Novák
 
 ----------------------Vysvětlení značení--------------------------------------------------------------------------------------------
 
