@@ -1,4 +1,5 @@
-﻿Win server
+﻿Windows Server 2008
+ autor: Petr Čaloun
 ----------
 -> Server - 1. síťová karta - síťový most
 	    2. síťová karta - vnitřní síť
