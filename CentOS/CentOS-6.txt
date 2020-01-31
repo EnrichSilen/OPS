@@ -1,4 +1,6 @@
-﻿-> CENTOS 6.5 bez SE linux
+Autor: Petr Čalou
+
+-> CENTOS 6.5 bez SE linux
 
 Zrcadla pro net-install
 -------------------
